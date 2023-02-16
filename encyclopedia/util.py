@@ -10,7 +10,7 @@ def list_entries():
     """
     _, filenames = default_storage.listdir("entries")
     return list(sorted(re.sub(r"\.md$", "", filename)
-                for filename in filenames if filename.endswith(".md")))
+                       for filename in filenames if filename.endswith(".md")))
 
 
 def save_entry(title, content):
@@ -35,3 +35,13 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+
+def search_fragment_in_listentries(fragment: str):
+    result = []
+    entry_list = list_entries()
+    for entry in entry_list:
+        if fragment in entry:
+            result.append(entry)
+
+    return result
